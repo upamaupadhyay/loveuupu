@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>To My Forever Fairytale — Happy Birthday Uppu 💜</title>
+<meta name="description" content="A birthday gift for the girl who became my home.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💜</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Ambient canvas: stars / hearts / petals -->
+<canvas id="fx-canvas"></canvas>
+
+<!-- Cursor sparkle trail -->
+<div id="cursor-glow"></div>
+
+<!-- Music control -->
+<button id="music-toggle" class="chrome-btn" aria-label="Toggle music">
+  <span class="icon-note">♪</span>
+</button>
+
+<!-- Secret moon -->
+<div id="secret-moon" title="🌙">🌙</div>
+<div id="secret-message" class="secret-panel hidden">
+  <p>Psst... this is just for you. 🤫</p>
+  <p>Out of every universe that could have existed, I'm endlessly grateful for the one where I got to meet you.</p>
+  <p>Happy Birthday, my Uppu. This whole little world is my heart, turned inside out.</p>
+  <button class="ghost-btn" id="close-secret">close</button>
+</div>
+
+<!-- Progress dots -->
+<div id="progress-dots" class="progress-dots"></div>
+
+<main id="app">
+
+  <!-- SCENE 0 — Loading / opening -->
+  <section class="scene" data-scene="0" id="scene-0">
+    <div class="scene-inner center">
+      <p class="eyebrow fade-line l1">Some stories aren't written...</p>
+      <p class="eyebrow fade-line l2">They are lived.</p>
+      <p class="eyebrow fade-line l3">This is ours.</p>
+      <button class="heart-tap l4" id="begin-heart" aria-label="Begin">
+        <span class="heart-shape"></span>
+      </button>
+      <p class="tap-hint l5">tap the heart</p>
+    </div>
+  </section>
+
+  <!-- SCENE 1 — Happy Birthday -->
+  <section class="scene" data-scene="1" id="scene-1">
+    <div class="scene-inner center">
+      <div class="photo-frame hero-photo" data-photo="hero">
+        <img src="assets/photos/hero.jpg" alt="Amrit and Uppu" onerror="this.parentElement.classList.add('no-photo')">
+        <div class="photo-fallback">💜</div>
+      </div>
+      <h1 class="display-xl">Happy Birthday</h1>
+      <h2 class="display-script">my beautiful Uppu</h2>
+      <p class="petal-note">A birthday gift for the girl who became my home.</p>
+      <button class="primary-btn next-btn">Begin our story</button>
+    </div>
+  </section>
+
+  <!-- SCENE 2 — Tea date -->
+  <section class="scene" data-scene="2" id="scene-2">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter one</div>
+      <h2 class="display-lg">The Tea Date ☕</h2>
+      <div class="story-lines">
+        <p class="story-line">I still remember how nervous I was.</p>
+        <p class="story-line">My hands were cold.</p>
+        <p class="story-line">My heartbeat was louder than the traffic.</p>
+        <p class="story-line">And then... you arrived.</p>
+        <p class="story-line accent">Same clothes. No bath. Absolutely unbothered.</p>
+        <p class="story-line">Yet somehow —</p>
+        <p class="story-line big">you were the prettiest girl there.</p>
+      </div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 3 — Same company -->
+  <section class="scene" data-scene="3" id="scene-3">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter two</div>
+      <h2 class="display-lg">Once upon a company</h2>
+      <div class="story-lines">
+        <p class="story-line">Out of hundreds of people in that building...</p>
+        <p class="story-line big">my eyes somehow always found you.</p>
+        <p class="story-line">You were just... a great human being.</p>
+        <p class="story-line">Still are. Still my favourite one.</p>
+      </div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 4 — Why I fell for you (tap hearts) -->
+  <section class="scene" data-scene="4" id="scene-4">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter three</div>
+      <h2 class="display-lg">Why I fell for you</h2>
+      <p class="hint-text">tap each heart</p>
+      <div class="reason-grid" id="reason-grid"></div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 5 — Fairytale (song) -->
+  <section class="scene" data-scene="5" id="scene-5">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter four</div>
+      <h2 class="display-lg">The Fairytale</h2>
+      <div class="story-lines">
+        <p class="story-line">The first song you ever made me listen to...</p>
+        <p class="story-line">I never understood why you loved it so much.</p>
+        <p class="story-line">Until I realised —</p>
+        <p class="story-line big">I was living inside my own fairytale.</p>
+        <p class="story-line accent">And that fairytale was you.</p>
+      </div>
+      <button id="play-fairytale" class="ghost-btn">▶ play our song</button>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 6 — Memory wall / gallery -->
+  <section class="scene" data-scene="6" id="scene-6">
+    <div class="scene-inner center wide">
+      <div class="chapter-label">chapter five</div>
+      <h2 class="display-lg">Memory Wall</h2>
+      <p class="hint-text">tap a photo to open the memory</p>
+      <div class="memory-wall" id="memory-wall"></div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 7 — Morning walks / promise -->
+  <section class="scene" data-scene="7" id="scene-7">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter six</div>
+      <h2 class="display-lg">Our Morning Walks</h2>
+      <div class="story-lines">
+        <p class="story-line">Remember our morning walks?</p>
+        <p class="story-line">I miss them. Every single one.</p>
+        <p class="story-line">Let's promise each other —</p>
+        <p class="story-line big">we'll start again. Not someday.</p>
+        <p class="story-line accent">After marriage.</p>
+      </div>
+      <button class="primary-btn" id="promise-btn">🤝 I promise</button>
+      <p id="promise-confirmed" class="hint-text hidden">promise saved, forever. 💜</p>
+      <button class="ghost-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 8 — Birthday celebration -->
+  <section class="scene" data-scene="8" id="scene-8">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter seven</div>
+      <h2 class="display-lg">Make a wish</h2>
+      <div class="cake-wrap">
+        <div class="cake">
+          <div class="candle" data-flame="1"><span class="flame"></span></div>
+          <div class="candle" data-flame="1"><span class="flame"></span></div>
+          <div class="candle" data-flame="1"><span class="flame"></span></div>
+          <div class="cake-top"></div>
+          <div class="cake-middle"></div>
+          <div class="cake-base"></div>
+        </div>
+      </div>
+      <button id="blow-btn" class="primary-btn">🎂 Blow the candles</button>
+      <p class="hint-text">(tap the button — or blow into your mic!)</p>
+	  <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 9 — Wedding countdown -->
+  <section class="scene" data-scene="9" id="scene-9">
+    <div class="scene-inner center">
+      <div class="chapter-label gold">the big day</div>
+      <h2 class="display-lg gold-text">26th November 2026</h2>
+      <div class="countdown" id="countdown">
+        <div class="count-box"><span id="cd-days">--</span><label>days</label></div>
+        <div class="count-box"><span id="cd-hours">--</span><label>hours</label></div>
+        <div class="count-box"><span id="cd-mins">--</span><label>mins</label></div>
+        <div class="count-box"><span id="cd-secs">--</span><label>secs</label></div>
+      </div>
+      <p class="petal-note">This is the last birthday before you become my wife.</p>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 10 — Dream house -->
+  <section class="scene" data-scene="10" id="scene-10">
+    <div class="scene-inner center wide">
+      <div class="chapter-label">chapter eight</div>
+      <h2 class="display-lg">Our Home, Someday</h2>
+      <p class="hint-text">tap a room</p>
+      <div class="house-grid" id="house-grid"></div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 11 — Promises -->
+  <section class="scene" data-scene="11" id="scene-11">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter nine</div>
+      <h2 class="display-lg">My Promises</h2>
+      <div class="promise-list" id="promise-list"></div>
+      <button class="primary-btn next-btn">Continue</button>
+    </div>
+  </section>
+
+  <!-- SCENE 12 — Reasons game -->
+  <section class="scene" data-scene="12" id="scene-12">
+    <div class="scene-inner center">
+      <div class="chapter-label">chapter ten</div>
+      <h2 class="display-lg">Catch the Hearts</h2>
+      <p class="hint-text">tap the floating hearts before they float away</p>
+      <div class="game-wrap" id="game-wrap">
+        <div class="game-score">caught: <span id="game-score">0</span></div>
+      </div>
+      <button class="primary-btn next-btn">Continue to the letter</button>
+    </div>
+  </section>
+
+  <!-- SCENE 13 — Final letter -->
+  <section class="scene" data-scene="13" id="scene-13">
+    <div class="scene-inner center">
+      <div id="envelope-wrap">
+        <div id="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-body">
+            <p class="envelope-label">For My Wife-To-Be</p>
+          </div>
+          <div class="wax-seal">💜</div>
+        </div>
+        <p class="tap-hint">tap the envelope to open</p>
+      </div>
+      <div id="letter-paper" class="hidden">
+        <div id="letter-text"></div>
+        <p class="letter-signoff hidden" id="letter-signoff">Forever Yours,<br><span class="display-script small">Amrit ❤️</span></p>
+		<button class="primary-btn next-btn">Continue</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 14 — Ending -->
+  <section class="scene" data-scene="14" id="scene-14">
+    <div class="scene-inner center">
+      <div class="photo-frame hero-photo small" data-photo="ending">
+        <img src="assets/photos/ending.jpg" alt="Amrit and Uppu" onerror="this.parentElement.classList.add('no-photo')">
+        <div class="photo-fallback">💜</div>
+      </div>
+      <p class="ending-line" id="end-line-1">I loved you yesterday.</p>
+      <p class="ending-line" id="end-line-2">I love you today.</p>
+      <p class="ending-line" id="end-line-3">I'll love you forever.</p>
+      <button id="voice-btn" class="primary-btn">❤️ tap here</button>
+      <audio id="voice-audio" src="assets/voice/message.mp4" preload="none"></audio>
+      <h2 class="display-script gold-text final-title">Forever Yours, Amrit</h2>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/script.js"></script>
+</body>
+</html>
